@@ -31,3 +31,13 @@ Presentar los resultados mediante tablas y gráficos claros, precisos y profesio
 
 🧱 Estructura del repositorio
 
+
+⚙️ Requisitos
+
+Versión mínima de R: 4.0
+
+Paquetes requeridos:
+tidyverse, readr, broom, modelsummary, margins, pROC, caret, janitor, gt
+
+
+
