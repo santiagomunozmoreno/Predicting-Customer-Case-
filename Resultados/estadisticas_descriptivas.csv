@@ -1,0 +1,12 @@
+Variable,N,Media,Desv_Std,Mínimo,Mediana,Máximo
+blog_articles_0_1,6347,0.16,4.66,-75,0,217
+chi_score_0_1,6347,5.06,30.83,-125,0,208
+chi_score_month_0,6347,87.32,66.28,0,87,298
+customer_age_in_months,6347,13.9,11.16,0,11,67
+days_since_last_login_0_1,6347,1.76,17.97,-648,0,61
+logins_0_1,6347,15.73,42.12,-293,2,865
+sp_0_1,6347,0.03,1.46,-4,0,4
+sp_month_0,6347,0.81,1.32,0,0,4
+support_cases_0_1,6347,-0.01,1.87,-29,0,31
+support_cases_month_0,6347,0.71,1.72,0,0,32
+views_0_1,6347,96.31,3152.41,-28322,0,230414
