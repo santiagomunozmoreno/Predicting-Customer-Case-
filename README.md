@@ -31,6 +31,12 @@ Presentar los resultados mediante tablas y gráficos claros, precisos y profesio
 
 🧱 Estructura del repositorio
 
+Código: contiene el script principal en R, donde se desarrolla todo el proceso analítico. En este archivo se realiza la limpieza de los datos, la estimación del modelo logit, el cálculo de efectos marginales y la evaluación del desempeño predictivo del modelo.
+
+Datos: en esta carpeta se almacena la base de datos utilizada en el caso, correspondiente al archivo proporcionado por la Darden School of Business. Aquí se incluyen los datos originales necesarios para la ejecución del análisis.
+
+Resultados: guarda las salidas generadas por el script, como tablas descriptivas, gráficos, evaluaciones del modelo (ROC, matriz de confusión, etc.) y cualquier otro producto intermedio o final del estudio.
+
 
 ⚙️ Requisitos
 
