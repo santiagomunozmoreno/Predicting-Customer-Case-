@@ -8,17 +8,17 @@ Para ello, se estima un modelo de probabilidad para una variable binaria, pudien
 
 El análisis incluye:
 
-Limpieza y exploración de los datos (EDA).
+- Limpieza y exploración de los datos (EDA).
 
-Estimación del modelo probabilístico.
+- Estimación del modelo probabilístico.
 
-Interpretación de los coeficientes relevantes.
+- Interpretación de los coeficientes relevantes.
 
-Cálculo de efectos marginales.
+- Cálculo de efectos marginales.
 
-Evaluación del modelo (ROC/AUC, matriz de confusión, R², errores, calibración y comparación entre valores predichos y reales).
+- Evaluación del modelo (ROC/AUC, matriz de confusión, R², errores, calibración y comparación entre valores predichos y reales).
 
-Exportación y presentación profesional de tablas y gráficos.
+- Presentación profesional de tablas y gráficos.
 
 ## 🎯 Objetivos del caso
 
