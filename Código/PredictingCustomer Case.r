@@ -303,3 +303,133 @@ cat("\n--- Métricas de Evaluación ---\n\n")
 print(kable(metricas_eval, format = "simple", align = c("l", "r")))
 
 write_csv(metricas_eval, file.path(directorio_salida, "metricas_evaluacion.csv"))
+# ------------------------------------------------------------------------------
+# 10. Curva ROC
+# ------------------------------------------------------------------------------
+
+curva_roc <- roc(datos_test$churn, datos_test$prob_churn, quiet = TRUE)
+auc_valor <- auc(curva_roc)
+
+datos_roc <- data.frame(
+  especificidad = curva_roc$specificities,
+  sensibilidad = curva_roc$sensitivities
+)
+
+grafico_roc <- ggplot(datos_roc, aes(x = 1 - especificidad, y = sensibilidad)) +
+  geom_line(color = "#2E86AB", linewidth = 2) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "gray50", linewidth = 1) +
+  annotate("text", x = 0.7, y = 0.3, 
+           label = paste("AUC =", round(auc_valor, 3)), 
+           size = 6, fontface = "bold", color = "#2E86AB") +
+  labs(title = paste0("Curva ROC (AUC = ", round(auc_valor, 3), ")"),
+       x = "1 - Especificidad", y = "Sensibilidad") +
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+
+ggsave(file.path(directorio_salida, "curva_roc.png"), grafico_roc, width = 8, height = 6)
+print(grafico_roc)
+
+# ------------------------------------------------------------------------------
+# 11. Análisis de errores
+# ------------------------------------------------------------------------------
+
+datos_test$error <- datos_test$churn - datos_test$prob_churn
+
+g_error_a <- ggplot(datos_test, aes(x = prob_churn, y = error)) +
+  geom_point(color = rgb(0.2, 0.4, 0.8, 0.4), size = 2) +
+  geom_hline(yintercept = 0, color = "red", linewidth = 1.5, linetype = "dashed") +
+  labs(title = "Errores de Predicción", x = "Probabilidad Predicha", y = "Error") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+
+g_error_b <- ggplot(datos_test, aes(x = error)) +
+  geom_histogram(fill = "#06D6A0", color = "white", bins = 30) +
+  geom_vline(xintercept = 0, color = "red", linewidth = 1.5, linetype = "dashed") +
+  labs(title = "Distribución de Errores", x = "Error", y = "Frecuencia") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+
+grafico_errores <- g_error_a + g_error_b + 
+  plot_annotation(title = "Análisis de Errores del Modelo",
+                  theme = theme(plot.title = element_text(size = 16, face = "bold", hjust = 0.5)))
+
+ggsave(file.path(directorio_salida, "grafico_errores.png"), grafico_errores, width = 12, height = 6)
+print(grafico_errores)
+
+# ------------------------------------------------------------------------------
+# 12. Distribución de probabilidades
+# ------------------------------------------------------------------------------
+
+grafico_prob <- ggplot(datos_test, aes(x = prob_churn, fill = factor(churn))) +
+  geom_histogram(position = "identity", alpha = 0.7, bins = 30) +
+  scale_fill_manual(values = c("0" = "#06D6A0", "1" = "#EF476F"),
+                    labels = c("No Churn", "Churn")) +
+  labs(title = "Distribución de Probabilidades Predichas",
+       subtitle = paste0("Modelo Logit - N = ", nrow(datos_test)),
+       x = "Probabilidad Predicha", y = "Frecuencia", fill = "Clase Real") +
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(face = "bold", size = 16, hjust = 0.5),
+        plot.subtitle = element_text(size = 12, hjust = 0.5),
+        legend.position = "top")
+
+ggsave(file.path(directorio_salida, "distribucion_probabilidades.png"), grafico_prob, width = 10, height = 6)
+print(grafico_prob)
+
+# ------------------------------------------------------------------------------
+# 13. Calibración por deciles
+# ------------------------------------------------------------------------------
+
+calibracion <- datos_test %>%
+  mutate(decil = ntile(prob_churn, 10)) %>%
+  group_by(decil) %>%
+  summarise(
+    n = n(),
+    prob_media = round(mean(prob_churn), 4),
+    tasa_observada = round(mean(churn), 4),
+    .groups = "drop"
+  )
+
+cat("\n--- Calibración por Deciles ---\n\n")
+print(kable(calibracion, format = "simple", align = "rrrr",
+            col.names = c("Decil", "N", "Prob. Predicha", "Tasa Observada")))
+
+write_csv(calibracion, file.path(directorio_salida, "calibracion.csv"))
+
+grafico_calib <- ggplot(calibracion, aes(x = prob_media, y = tasa_observada)) +
+  geom_point(color = "#2E86AB", size = 4) +
+  geom_abline(intercept = 0, slope = 1, color = "red", linewidth = 1.5, linetype = "dashed") +
+  labs(title = "Curva de Calibración",
+       x = "Probabilidad Predicha (promedio)", y = "Tasa Observada") +
+  coord_cartesian(xlim = c(0, 1), ylim = c(0, 1)) +
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+
+ggsave(file.path(directorio_salida, "calibracion.png"), grafico_calib, width = 8, height = 6)
+print(grafico_calib)
+
+# ------------------------------------------------------------------------------
+# 14. Guardar modelos
+# ------------------------------------------------------------------------------
+
+saveRDS(modelo_logit, file.path(directorio_salida, "modelo_logit.rds"))
+saveRDS(modelo_probit, file.path(directorio_salida, "modelo_probit.rds"))
+
+# ------------------------------------------------------------------------------
+# Resumen final
+# ------------------------------------------------------------------------------
+
+resumen <- data.frame(
+  Métrica = c("Pseudo R²", "AUC", "Exactitud", "Sensibilidad", "F1-Score", "Obs. Test"),
+  Valor = c(
+    round(pseudo_r2, 4),
+    round(auc_valor, 4),
+    round(matriz_confusion$overall["Accuracy"], 4),
+    round(matriz_confusion$byClass["Sensitivity"], 4),
+    round(matriz_confusion$byClass["F1"], 4),
+    nrow(datos_test)
+  )
+)
+
+cat("\n\n=== ANÁLISIS COMPLETADO ===\n\n")
+print(kable(resumen, format = "simple", align = c("l", "r")))
+cat("\n")
