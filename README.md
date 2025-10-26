@@ -33,7 +33,7 @@ El análisis incluye:
   
   ┣ 📁 datos  → en esta carpeta se almacena la base de datos utilizada en el caso, correspondiente al archivo proporcionado por la Darden School of Business. Aquí se incluyen los datos originales necesarios para la ejecución del análisis.
   
-  ┣ 📁 resultados  → guarda las salidas generadas por el script, como tablas descriptivas, gráficos, evaluaciones del modelo (ROC, matriz de confusión, etc.) y cualquier otro producto intermedio o final del estudio.
+  ┣ 📁 resultados  → Se encuentra el documento en pdf y las salidas generadas por el script, como tablas descriptivas, gráficos, evaluaciones del modelo (ROC, matriz de confusión, etc.) y cualquier otro producto intermedio o final del estudio.
 
 
 ## 🛠️ Librerías utilizadas
