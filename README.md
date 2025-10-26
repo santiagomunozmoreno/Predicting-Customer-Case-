@@ -41,15 +41,25 @@ Exportación y presentación profesional de tablas y gráficos.
 El script en R requiere las siguientes librerías:
 
 r
+
 library(tidyverse)
+
 library(readxl)
+
 library(broom)
+
 library(modelsummary)
+
 library(pROC)
+
 library(caret)
+
 library(janitor)
+
 library(knitr)
+
 library(patchwork)
+
 library(stargazer)
 
 
