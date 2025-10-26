@@ -1,4 +1,5 @@
 📊 Predicting Customer Case
+
 🧩 Descripción general
 
 Este proyecto tiene como objetivo predecir y prevenir la deserción de clientes (churn o attrition) en la empresa QWE INC..
