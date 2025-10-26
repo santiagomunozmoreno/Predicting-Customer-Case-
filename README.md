@@ -1,6 +1,6 @@
-📊 Predicting Customer Case
+# 📊 Predicting Customer Case
 
-🧩 Descripción general
+## 🧩 Descripción general
 
 Este proyecto tiene como objetivo predecir y prevenir la deserción de clientes (churn o attrition) en la empresa QWE INC..
 
@@ -20,31 +20,35 @@ Evaluación del modelo (ROC/AUC, matriz de confusión, R², errores, calibració
 
 Exportación y presentación profesional de tablas y gráficos.
 
-🎯 Objetivos del caso
+## 🎯 Objetivos del caso
 
-Estimar un modelo estadístico que permita predecir la probabilidad de deserción de los clientes de QWE Inc.
+- Estimar un modelo estadístico que permita predecir la probabilidad de deserción de los clientes de QWE Inc.
+- Identificar las variables más determinantes en la decisión de abandono.
+- Evaluar la capacidad predictiva del modelo y su posible aplicación práctica para la retención proactiva de clientes.
+- Presentar los resultados mediante tablas y gráficos claros, precisos y profesionalmente formateados.
 
-Identificar las variables más determinantes en la decisión de abandono.
+## 📂 Predicting-Customer-Case Contiene las siguientes carpetas
 
-Evaluar la capacidad predictiva del modelo y su posible aplicación práctica para la retención proactiva de clientes.
-
-Presentar los resultados mediante tablas y gráficos claros, precisos y profesionalmente formateados.
-
-🧱 Estructura del repositorio
-
-Código: contiene el script principal en R, donde se desarrolla todo el proceso analítico. En este archivo se realiza la limpieza de los datos, la estimación del modelo logit, el cálculo de efectos marginales y la evaluación del desempeño predictivo del modelo.
-
-Datos: en esta carpeta se almacena la base de datos utilizada en el caso, correspondiente al archivo proporcionado por la Darden School of Business. Aquí se incluyen los datos originales necesarios para la ejecución del análisis.
-
-Resultados: guarda las salidas generadas por el script, como tablas descriptivas, gráficos, evaluaciones del modelo (ROC, matriz de confusión, etc.) y cualquier otro producto intermedio o final del estudio.
+  ┣ 📁 código →  contiene el script principal en R, donde se desarrolla todo el proceso analítico. En este archivo se realiza la limpieza de los datos, la estimación del modelo logit, el cálculo de efectos marginales y la evaluación del desempeño predictivo del modelo.
+  ┣ 📁 datos  → en esta carpeta se almacena la base de datos utilizada en el caso, correspondiente al archivo proporcionado por la Darden School of Business. Aquí se incluyen los datos originales necesarios para la ejecución del análisis.
+  ┣ 📁 resultados  → guarda las salidas generadas por el script, como tablas descriptivas, gráficos, evaluaciones del modelo (ROC, matriz de confusión, etc.) y cualquier otro producto intermedio o final del estudio.
 
 
-⚙️ Requisitos
+## 🛠️ Librerías utilizadas
 
-Versión mínima de R: 4.0
+El script en R requiere las siguientes librerías:
 
-Paquetes requeridos:
-tidyverse, readr, broom, modelsummary, margins, pROC, caret, janitor, gt
+r
+library(tidyverse)
+library(readxl)
+library(broom)
+library(modelsummary)
+library(pROC)
+library(caret)
+library(janitor)
+library(knitr)
+library(patchwork)
+library(stargazer)
 
 
 
